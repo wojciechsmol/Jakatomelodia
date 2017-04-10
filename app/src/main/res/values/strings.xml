@@ -1,3 +1,5 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Jaka to melodia?</string>
+    <string name="new_game">New Game</string>
+    <string name="question">Question <xliff:g id="question_nr">%d</xliff:g> / <xliff:g id="max_questions">%d</xliff:g></string>
 </resources>
