@@ -92,6 +92,7 @@ public class PlayActivity extends AppCompatActivity {
 
             //Once the audio file stops playing I clean up the resources
             releaseMediaPlayer();
+            //!!!! HERE'S THE PROBLEM FOR EXAMPLE. THE ACTIVITY QUITS HERE BUT IT SHOULD NOT!
 
             for (int i = 3; i >= 0; i--) {
                 final int iFinal = i;
@@ -154,6 +155,8 @@ public class PlayActivity extends AppCompatActivity {
         super.onStop();
         // Clean up resources
         releaseMediaPlayer();
+        // HERE'S THE PROBLEM TOO WHEN I CLICK "BACK" BUTTON IT GOES TO THE MAIN ACTIVITY BUT
+        // THE MAIN ACTIVITY QUITS
     }
 
     //Initializes required elements
