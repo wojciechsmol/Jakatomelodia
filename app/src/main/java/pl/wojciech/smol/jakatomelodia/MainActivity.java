@@ -11,7 +11,7 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
-    //New Game button
+    //New Game button.
     private Button newGameButton;
 
     public static Game game;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         // Initializing RandomDataGenerator Object
         Game.generator = new RandomDataGenerator();
         //Initializing newGameButton
-        newGameButton = (Button) findViewById(R.id.button_new_game);
+        Button newGameButton = (Button) findViewById(R.id.button_new_game);
 
         //Setting onClickListener for the newGameButton
         newGameButton.setOnClickListener(new View.OnClickListener() {
