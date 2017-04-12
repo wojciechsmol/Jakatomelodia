@@ -15,6 +15,10 @@ public class Game {
 
     // Max number of questions in a single game
     public static final int MAX_QUESTIONS = 10;
+    //Max score
+    public static final int MAX_SCORE = 100;
+    // Score for correct answer
+    private static final int ONE_SCORE = 10;
     // Current question number
     private int mquestionNumber;
     // Score
@@ -24,9 +28,16 @@ public class Game {
     // Random generator
     public static RandomDataGenerator generator;
 
+    static {
+        // Initializing RandomDataGenerator Object
+        generator = new RandomDataGenerator();
+    }
+
+    // public Constructor
     public Game() {
         this.mquestionNumber = 0;
         this.mScore = 0;
+        //Generating questions
         setQuestions();
     }
 
@@ -44,8 +55,9 @@ public class Game {
 
     private void setQuestions() {
         // Initializing LinkedHashSet so that the questions do not duplicate
-        mQuestionsGame = new ArrayList<Question>();
+        mQuestionsGame = new ArrayList<>(MAX_QUESTIONS);
 
+        //randomIndexes to get questions from Question class
         int[] randomIndexes = new int[MAX_QUESTIONS];
 
         try {
@@ -55,8 +67,32 @@ public class Game {
             e.printStackTrace();
         }
 
+        // Adding questions to ArrayList
         for (int i = 0; i < MAX_QUESTIONS; i++) {
             mQuestionsGame.add(Question.mQuestions[randomIndexes[i]]);
         }
+    }
+
+    // If the answer was correct
+    public void correctAnswer() {
+        // increase Score
+        mScore += ONE_SCORE;
+        // IF this is not the end of the game increase question number
+        if (!endOfAGame())
+            // Go to next question
+            ++mquestionNumber;
+    }
+
+    // If the answer was incorrect
+    public void wrongAnswer() {
+        // IF this is not the end of the game increase question number
+        if (!endOfAGame())
+            // Go to next question
+            ++mquestionNumber;
+    }
+
+    // Informs if it's the end of the game
+    public boolean endOfAGame() {
+        return mquestionNumber >= (MAX_QUESTIONS - 1);
     }
 }

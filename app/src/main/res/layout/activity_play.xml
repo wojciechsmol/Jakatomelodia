@@ -1,111 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_question"
-    style="@style/StandardBackground"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    style="@style/Layout"
     tools:context="pl.wojciech.smol.jakatomelodia.PlayActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:adjustViewBounds="true"
-        android:src="@drawable/logo" />
+    <ImageButton
+        android:id="@+id/exit_icon"
+        style="@style/ExitIcon" />
 
-    <TextView
-        android:id="@+id/question_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.3"
-        android:gravity="center"
-        android:text="Question 1"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@android:color/white" />
-
-    <SeekBar
-        android:id="@+id/progress_bar"
-        android:layout_width="220dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.3" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:baselineAligned="false"
-        android:layout_weight="0.8">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:baselineAligned="false"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:columnCount="2"
-            android:rowCount="2">
+        <ImageView
+            android:id="@+id/logo"
+            style="@style/Logo" />
 
-            <!--I wrap the buttons in LinearLayouts so that they don't mess up
-            when there are 2 lines of TEXT-->
+        <TextView
+            android:id="@+id/question_text"
+            style="@style/TextQuestion" />
 
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="70dp"
-                android:layout_column="0"
-                android:layout_row="0">
+        <SeekBar
+            android:id="@+id/progress_bar"
+            style="@style/SeekBar" />
 
-                <Button
-                    android:id="@+id/button_answer0"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="70dp"
-                android:layout_column="0"
-                android:layout_row="1">
-
-                <Button
-                    android:id="@+id/button_answer1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="70dp"
-                android:layout_column="1"
-                android:layout_row="0">
-
-                <Button
-                    android:id="@+id/button_answer2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="70dp"
-                android:layout_column="1"
-                android:layout_row="1">
-
-                <Button
-                    android:id="@+id/button_answer3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
-            </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
 
 
-        </GridLayout>
-    </RelativeLayout>
+            <GridLayout style="@style/GridButtons">
 
-</LinearLayout>
+                <!--I wrap the buttons in LinearLayouts so that they don't mess up
+                when there are 2 lines of TEXT-->
+
+                <LinearLayout
+                    style="@style/ButtonWrapper"
+                    android:layout_column="0"
+                    android:layout_marginBottom="@dimen/button_wrapper_margin"
+                    android:layout_row="0">
+
+                    <Button
+                        android:id="@+id/button_answer0"
+                        style="@style/Button.Answer"
+                        android:shadowRadius="5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ButtonWrapper"
+                    android:layout_column="0"
+                    android:layout_row="1">
+
+                    <Button
+                        android:id="@+id/button_answer1"
+                        style="@style/Button.Answer"
+                        android:shadowRadius="5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ButtonWrapper"
+                    android:layout_column="1"
+                    android:layout_marginBottom="@dimen/button_wrapper_margin"
+                    android:layout_marginLeft="5dp"
+                    android:layout_row="0">
+
+                    <Button
+                        android:id="@+id/button_answer2"
+                        style="@style/Button.Answer"
+                        android:shadowRadius="5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/ButtonWrapper"
+                    android:layout_column="1"
+                    android:layout_marginLeft="@dimen/button_wrapper_margin"
+                    android:layout_row="1">
+
+                    <Button
+                        android:id="@+id/button_answer3"
+                        style="@style/Button.Answer"
+                        android:shadowRadius="5" />
+                </LinearLayout>
+
+
+            </GridLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

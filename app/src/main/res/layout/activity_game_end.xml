@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    style="@style/Layout"
+    style="@style/Layout.GameEnd"
     tools:context="pl.wojciech.smol.jakatomelodia.MainActivity">
 
     <LinearLayout
@@ -17,14 +17,22 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/score_text"
+                style="@style/TextScore" />
+
+            <TextView
+                android:id="@+id/score_number"
+                style="@style/TextScoreNumber"
+                android:layout_below="@+id/score_text" />
 
             <Button
                 android:id="@+id/button_new_game"
                 style="@style/Button"
                 android:layout_below="@id/score_number"
-                android:layout_marginTop="@dimen/new_game_margin_top_main"
+                android:layout_marginTop="@dimen/new_game_margin_top_end"
                 android:shadowRadius="5"
                 android:text="@string/new_game" />
 
@@ -32,10 +40,9 @@
                 android:id="@+id/button_exit"
                 style="@style/Button"
                 android:layout_below="@id/button_new_game"
-                android:layout_marginTop="@dimen/exit_margin_top_main"
+                android:layout_marginTop="@dimen/exit_margin_top_end"
                 android:shadowRadius="5"
                 android:text="@string/exit_game" />
-
 
         </RelativeLayout>
 

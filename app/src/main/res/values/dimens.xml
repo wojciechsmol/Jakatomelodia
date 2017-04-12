@@ -2,4 +2,22 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_width">200dp</dimen>
+    <dimen name="button_height">72dp</dimen>
+    <dimen name="logo_width">200dp</dimen>
+    <dimen name="logo_height">200dp</dimen>
+    <dimen name="wrapper_width">140dp</dimen>
+    <dimen name="wrapper_height">60dp</dimen>
+    <dimen name="padding_text_score">10dp</dimen>
+    <dimen name="seekbar_width">220dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="text_question_margin_top">20dp</dimen>
+    <dimen name="text_score_size">30sp</dimen>
+    <dimen name="text_score_nr_size">50sp</dimen>
+    <dimen name="new_game_margin_top_main">90dp</dimen>
+    <dimen name="exit_margin_top_main">30dp</dimen>
+    <dimen name="button_wrapper_margin">5dp</dimen>
+    <dimen name="new_game_margin_top_end">10dp</dimen>
+    <dimen name="exit_margin_top_end">15dp</dimen>
+    <dimen name="button_corner_radius">14dp</dimen>
 </resources>

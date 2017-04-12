@@ -1,13 +1,18 @@
 package pl.wojciech.smol.jakatomelodia;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static pl.wojciech.smol.jakatomelodia.R.string.question;
+
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -25,6 +32,10 @@ public class PlayActivity extends AppCompatActivity {
     private static final int MAX_ANSWERS = 4;
     //Game object
     public static Game game;
+    // Toast duration in miliseconds
+    private static final int TOAST_DURATION = 700;
+    // Transition time in miliseconds
+    private static final int TRANSITION_TIME = 1100;
     // List of possible answers
     List<Question> mPossibleAnswers;
     // Answer button top-left
@@ -35,14 +46,12 @@ public class PlayActivity extends AppCompatActivity {
     private Button buttonAnswer2;
     // Answer button bottom-right
     private Button buttonAnswer3;
-    //Question TextView
-    private TextView questionText;
     // Progress Bar indicating song fragment time
     private SeekBar progressBar;
     // Audio file startTime
     private double startTime = 0;
-    //Audio file finalTime
-    private double finalTime = 0;
+    //Was button clicked
+    private boolean wasButtonBlocked;
     // Handler for Runnable
     private final Handler myHandler = new Handler();
     /**
@@ -53,6 +62,11 @@ public class PlayActivity extends AppCompatActivity {
      * Handles audio focus when playing a sound file
      */
     private AudioManager mAudioManager;
+    /**
+     * Handles playback of the answer sound file (correct or wrong)
+     */
+    private MediaPlayer mAnswerMediaPlayer;
+
 
     /**
      * This listener gets triggered whenever the audio focus changes
@@ -90,28 +104,133 @@ public class PlayActivity extends AppCompatActivity {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
 
-            //Once the audio file stops playing I clean up the resources
+            //Once the audio file stops playing (ONLY AT THE END OF FILE)I clean up the resources
             releaseMediaPlayer();
-            //!!!! HERE'S THE PROBLEM FOR EXAMPLE. THE ACTIVITY QUITS HERE BUT IT SHOULD NOT!
 
-            for (int i = 3; i >= 0; i--) {
-                final int iFinal = i;
+            // only if this is the end of the file (none of the buttons was clicked)
+            if (!wasButtonBlocked) {
+                // Creating Media Player Object playing Wrong answer sound and starting it
+                mAnswerMediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.wrong_answer);
+                mAnswerMediaPlayer.start();
+                //Blocking the buttons
+                blockButtons();
+                // Showing a toast with info that time's up
+                final Toast toast = Toast.makeText(PlayActivity.this, getString(R.string.time_up), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
 
+                // Cancelling Toast so that it lasts time specified in TOAST_DURATION
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, TOAST_DURATION);
+
+                // The transition goes after TRANSITION TIME:
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
-                        Toast toast = Toast.makeText(PlayActivity.this, "KONIEC CZASU. Kolejne pytanie za: " + iFinal, Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.TOP, 0, 200);
-                        toast.show();
-                    }
-                }, 100);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    Toast.makeText(PlayActivity.this, "Huhu", Toast.LENGTH_SHORT).show();
-                    //setGravity(Gravity.TOP, 0, 0).
-                }
-            }, 400);
 
+                        // If this is the end of the game go to GameEndActivity
+                        if (game.endOfAGame()) {
+                            game.wrongAnswer();
+                            startActivity(new Intent(PlayActivity.this, GameEndActivity.class));
+                        }  // Otherwise go to next question
+                        else {
+                            game.wrongAnswer();
+                            startActivity(new Intent(PlayActivity.this, PlayActivity.class));
+                        }
+                    }
+                }, TRANSITION_TIME);
+            }
+        }
+
+
+    };
+
+    // LISTENER FOR ALL FOUR BUTTONS
+    private View.OnClickListener buttonAnswerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // Blocking the buttons
+            blockButtons();
+            // Stop playback and release resource
+            releaseMediaPlayer();
+            // Answer button initialization
+            Button answerButton = (Button) v;
+            // Text from the button selected
+            String buttonText = answerButton.getText().toString();
+
+            // IF THE ANSWER WAS CORRECT (buttonText is equal to the song title)
+            if (buttonText.equals(game.getCurrentQuestion().getAnswer())) {
+
+                // Creating Media Player Object playing Correct answer sound and starting it
+                mAnswerMediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.correct_answer);
+                mAnswerMediaPlayer.start();
+                // Showing a toast with info that the answer was correct
+                final Toast toast = Toast.makeText(PlayActivity.this, getString(R.string.correct_answer), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+
+                // Cancelling Toast so that it lasts time specified in TOAST_DURATION
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, TOAST_DURATION);
+
+                // The transition goes after TRANSITION TIME:
+                myHandler.postDelayed(new Runnable() {
+                                          public void run() {
+                                              // If this is the end of the game go to GameEndActivity
+                                              if (game.endOfAGame()) {
+                                                  game.correctAnswer();
+                                                  startActivity(new Intent(PlayActivity.this, GameEndActivity.class));
+                                              } // Otherwise go to next question
+                                              else {
+                                                  game.correctAnswer();
+                                                  startActivity(new Intent(PlayActivity.this, PlayActivity.class));
+                                              }
+
+                                          }
+                                      }
+
+                        , TRANSITION_TIME);
+
+            } // IF THE ANSWER WAS WRONG:
+            else {
+                // Creating Media Player Object playing wrong answer sound and starting it
+                mAnswerMediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.wrong_answer);
+                mAnswerMediaPlayer.start();
+                // Showing a toast with info that the answer was wrong
+                final Toast toast = Toast.makeText(PlayActivity.this, getString(R.string.wrong_answer), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+
+                // Cancelling Toast so that it lasts time specified in TOAST_DURATION
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, TOAST_DURATION);
+
+                // The transition goes after TRANSITION TIME:
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        // If this is the end of the game go to GameEndActivity
+                        if (game.endOfAGame()) {
+                            game.wrongAnswer();
+                            startActivity(new Intent(PlayActivity.this, GameEndActivity.class));
+                        } // Otherwise go to next question
+                        else {
+                            game.wrongAnswer();
+                            startActivity(new Intent(PlayActivity.this, PlayActivity.class));
+                        }
+                    }
+                }, TRANSITION_TIME);
+            }
         }
     };
 
@@ -119,10 +238,8 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-
         // Initializing required elements
         initialization();
-
 
     }
 
@@ -139,7 +256,8 @@ public class PlayActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         // Pause the media player
-        mMediaPlayer.pause();
+        if (mMediaPlayer != null)
+            mMediaPlayer.pause();
 
     }
 
@@ -147,7 +265,8 @@ public class PlayActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         // Resume the media player
-        mMediaPlayer.start();
+        if (mMediaPlayer != null)
+            mMediaPlayer.start();
     }
 
     @Override
@@ -155,21 +274,41 @@ public class PlayActivity extends AppCompatActivity {
         super.onStop();
         // Clean up resources
         releaseMediaPlayer();
-        // HERE'S THE PROBLEM TOO WHEN I CLICK "BACK" BUTTON IT GOES TO THE MAIN ACTIVITY BUT
-        // THE MAIN ACTIVITY QUITS
+    }
+
+    // When BACK button is Pressed I invoke the alert
+    @Override
+    public void onBackPressed() {
+        showEndOfGameAlert();
     }
 
     //Initializes required elements
     private void initialization() {
         buttonAnswer0 = (Button) findViewById(R.id.button_answer0);
+        buttonAnswer0.setOnClickListener(buttonAnswerListener);
         buttonAnswer1 = (Button) findViewById(R.id.button_answer1);
+        buttonAnswer1.setOnClickListener(buttonAnswerListener);
         buttonAnswer2 = (Button) findViewById(R.id.button_answer2);
+        buttonAnswer2.setOnClickListener(buttonAnswerListener);
         buttonAnswer3 = (Button) findViewById(R.id.button_answer3);
-        questionText = (TextView) findViewById(R.id.question_text);
+        buttonAnswer3.setOnClickListener(buttonAnswerListener);
+        wasButtonBlocked = false;
+        ImageButton exitIconButton = (ImageButton) findViewById(R.id.exit_icon);
+        // Setting onClickLister for the ImageButton
+        exitIconButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If user clicks on exit icon then the alert is shown
+                showEndOfGameAlert();
+            }
+        });
         progressBar = (SeekBar) findViewById(R.id.progress_bar);
         progressBar.setClickable(false);
+        // Initializing mAudioManager
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        questionText.setText(getString(R.string.question, (game.getQuestionNumber() + 1), Game.MAX_QUESTIONS));
+        // Setting Question text (with correct number)
+        TextView questionText = (TextView) findViewById(R.id.question_text);
+        questionText.setText(getString(question, (game.getQuestionNumber() + 1), Game.MAX_QUESTIONS));
         // filling mPossibleAnswer Array:
         setPossibleAnswers();
 
@@ -181,10 +320,13 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer3.setText(mPossibleAnswers.get(3).getAnswer());
     }
 
-    private void setPossibleAnswers() {
-        mPossibleAnswers = new ArrayList<Question>();
+    // Sets Other possible answers for the buttons
+    private void setPossibleAnswers() throws MathIllegalNumberException {
+        // Creating array of possible answers and adding correct answer to this
+        mPossibleAnswers = new ArrayList<>(MAX_ANSWERS);
         mPossibleAnswers.add(game.getCurrentQuestion());
 
+        //randomIndexes to get questions from Question class
         int[] randomIndexes = new int[MAX_ANSWERS - 1];
 
         try {
@@ -206,7 +348,8 @@ public class PlayActivity extends AppCompatActivity {
                     // searching for unique question
                     j = Game.generator.nextInt(0, Question.mQuestions.length - 1);
 
-                } while (mPossibleAnswers.contains(Question.mQuestions[j]));
+                } // while the array already contains this answer
+                while (mPossibleAnswers.contains(Question.mQuestions[j]));
                 // add question to Array
                 mPossibleAnswers.add(Question.mQuestions[j]);
             }
@@ -217,6 +360,7 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
+    // Starting main audio file (song audio file)
     private void startAudio() {
 
         // Request audio focus so in order to play the audio file.
@@ -233,8 +377,10 @@ public class PlayActivity extends AppCompatActivity {
             // Start the audio file
             mMediaPlayer.start();
 
+            // setting startTime for the progressBar
             startTime = mMediaPlayer.getCurrentPosition();
-            finalTime = mMediaPlayer.getDuration();
+            // setting finalTime for the progressBar
+            double finalTime = mMediaPlayer.getDuration();
             // Setup a listener on the media player, so that we can stop and release the
             // media player once the sound has finished playing.
             mMediaPlayer.setOnCompletionListener(mCompletionListener);
@@ -249,15 +395,28 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
+    // This process updates progressBar
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
             // Updating progressBar each second based on audio being played
-            startTime = mMediaPlayer.getCurrentPosition();
-            progressBar.setProgress((int) startTime);
-            myHandler.postDelayed(this, 100);
+            if (mMediaPlayer != null) {
+                startTime = mMediaPlayer.getCurrentPosition();
+                progressBar.setProgress((int) startTime);
+                myHandler.postDelayed(this, 10);
+            }
         }
     };
 
+    // Blocking the buttons
+    private void blockButtons() {
+        buttonAnswer0.setClickable(false);
+        buttonAnswer1.setClickable(false);
+        buttonAnswer2.setClickable(false);
+        buttonAnswer3.setClickable(false);
+        wasButtonBlocked = true;
+    }
+
+    // stop Audio and release resources from mediaPlayers
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mMediaPlayer != null) {
@@ -274,5 +433,44 @@ public class PlayActivity extends AppCompatActivity {
             // unregisters the AudioFocusChangeListener so we don't get anymore callbacks.
             mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
+
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mAnswerMediaPlayer != null) {
+
+            mAnswerMediaPlayer.release();
+            mAnswerMediaPlayer = null;
+        }
+    }
+
+    // This alert ensures that the user really want to cancel the game
+    private void showEndOfGameAlert() {
+        // Initializing alertBuilder
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PlayActivity.this);
+        alertBuilder.setMessage(getString(R.string.cancel_game));
+        alertBuilder.setCancelable(true);
+
+        // Setting positive button
+        alertBuilder.setPositiveButton(
+                getString(R.string.yes),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Go to GameEndActivity
+                        startActivity(new Intent(PlayActivity.this, GameEndActivity.class));
+                        dialog.cancel();
+                    }
+                });
+
+        // Setting negative button
+        alertBuilder.setNegativeButton(
+                getString(R.string.no),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        //Finally creating alert using builder
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
     }
 }

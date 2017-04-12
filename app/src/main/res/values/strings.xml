@@ -1,5 +1,16 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Jaka to melodia?</string>
     <string name="new_game">New Game</string>
+    <string name="exit_game">Exit Game</string>
+    <string name="score">SCORE:</string>
     <string name="question">Question <xliff:g id="question_nr">%d</xliff:g> / <xliff:g id="max_questions">%d</xliff:g></string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="time_up">Time\'s up!</string>
+    <string name="correct_answer">Correct answer!</string>
+    <string name="wrong_answer">Wrong answer!</string>
+    <string name="cancel_game">Cancel current game?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>
