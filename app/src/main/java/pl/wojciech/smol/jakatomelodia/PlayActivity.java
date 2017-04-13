@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,8 @@ public class PlayActivity extends AppCompatActivity {
     private static final int TOAST_DURATION = 700;
     // Transition time in miliseconds
     private static final int TRANSITION_TIME = 1100;
+    // Y axe offset for Toast
+    private static final int GRAVITY_Y_AXE = 25;
     // List of possible answers
     List<Question> mPossibleAnswers;
     // Answer button top-left
@@ -116,7 +119,7 @@ public class PlayActivity extends AppCompatActivity {
                 blockButtons();
                 // Showing a toast with info that time's up
                 final Toast toast = Toast.makeText(PlayActivity.this, getString(R.string.time_up), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setGravity(Gravity.CENTER, 0, GRAVITY_Y_AXE);
                 toast.show();
 
                 // Cancelling Toast so that it lasts time specified in TOAST_DURATION
@@ -169,7 +172,7 @@ public class PlayActivity extends AppCompatActivity {
                 mAnswerMediaPlayer.start();
                 // Showing a toast with info that the answer was correct
                 final Toast toast = Toast.makeText(PlayActivity.this, getString(R.string.correct_answer), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setGravity(Gravity.CENTER, 0, GRAVITY_Y_AXE);
                 toast.show();
 
                 // Cancelling Toast so that it lasts time specified in TOAST_DURATION
@@ -205,7 +208,7 @@ public class PlayActivity extends AppCompatActivity {
                 mAnswerMediaPlayer.start();
                 // Showing a toast with info that the answer was wrong
                 final Toast toast = Toast.makeText(PlayActivity.this, getString(R.string.wrong_answer), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setGravity(Gravity.CENTER, 0, GRAVITY_Y_AXE);
                 toast.show();
 
                 // Cancelling Toast so that it lasts time specified in TOAST_DURATION
@@ -239,6 +242,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         // Initializing required elements
+        Log.v("ONCREATE! ONCREATE!", "ONCREATE! ONCREATE!");
         initialization();
 
     }
@@ -318,6 +322,8 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer1.setText(mPossibleAnswers.get(1).getAnswer());
         buttonAnswer2.setText(mPossibleAnswers.get(2).getAnswer());
         buttonAnswer3.setText(mPossibleAnswers.get(3).getAnswer());
+
+
     }
 
     // Sets Other possible answers for the buttons
@@ -331,7 +337,7 @@ public class PlayActivity extends AppCompatActivity {
 
         try {
             //nextPermutation generates an integer array without repetition
-            randomIndexes = Game.generator.nextPermutation((Question.mQuestions.length - 1), MAX_ANSWERS - 1);
+            randomIndexes = Game.generator.nextPermutation((Question.mQuestions.length), MAX_ANSWERS - 1);
         } catch (MathIllegalNumberException e) {
             e.printStackTrace();
         }

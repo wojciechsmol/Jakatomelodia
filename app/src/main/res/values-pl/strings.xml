@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Jaka to melodia?</string>
+    <string name="new_game">Nowa Gra</string>
+    <string name="exit_game">Wyjście Z Gry</string>
+    <string name="score">WYNIK:</string>
+    <string name="question">Pytanie <xliff:g id="question_nr">%d</xliff:g> / <xliff:g id="max_questions">%d</xliff:g></string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="time_up">Koniec czasu!</string>
+    <string name="correct_answer">Poprawna odpowiedź!</string>
+    <string name="wrong_answer">Niepoprawna odpowiedź!</string>
+    <string name="cancel_game">Poddajesz się?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+</resources>

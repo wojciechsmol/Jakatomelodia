@@ -20,22 +20,35 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button_new_game"
-                style="@style/Button"
-                android:layout_below="@id/score_number"
+            <!--FrameLayout for touch Effect-->
+            <FrameLayout
+                android:id="@+id/new_game_frame"
+                style="@style/ButtonWrapper"
                 android:layout_marginTop="@dimen/new_game_margin_top_main"
-                android:shadowRadius="5"
-                android:text="@string/new_game" />
+                >
 
-            <Button
-                android:id="@+id/button_exit"
-                style="@style/Button"
-                android:layout_below="@id/button_new_game"
+                <Button
+                    android:id="@+id/button_new_game"
+                    style="@style/Button"
+                    android:layout_below="@id/score_number"
+                    android:text="@string/new_game"
+                    android:shadowRadius="5"/>
+            </FrameLayout>
+
+            <!--FrameLayout for touch Effect-->
+            <FrameLayout
+                android:id="@+id/exit_button_frame"
+                style="@style/ButtonWrapper"
+                android:layout_below="@id/new_game_frame"
                 android:layout_marginTop="@dimen/exit_margin_top_main"
-                android:shadowRadius="5"
-                android:text="@string/exit_game" />
+                >
 
+                <Button
+                    android:id="@+id/button_exit"
+                    style="@style/Button"
+                    android:text="@string/exit_game"
+                    android:shadowRadius="5"/>
+            </FrameLayout>
 
         </RelativeLayout>
 

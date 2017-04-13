@@ -30,25 +30,35 @@
     </style>
 
     <style name="Button">
-        <item name="android:layout_width">@dimen/button_width</item>
-        <item name="android:layout_height">@dimen/button_height</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:background">@drawable/button</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Button.Answer">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_centerHorizontal">false</item>
-        <item name="android:background">@drawable/button</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="ButtonWrapper">
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:background">@drawable/button</item>
+    </style>
+
+    <style name="ButtonWrapper.Play">
+        <item name="android:layout_width">@dimen/wrapper_width</item>
+        <item name="android:layout_height">@dimen/wrapper_height</item>
+    </style>
+
     <style name="Logo">
         <item name="android:contentDescription">App Logo</item>
+        <item name="android:layout_marginTop">@dimen/logo_margin_top</item>
         <item name="android:layout_width">@dimen/logo_width</item>
         <item name="android:layout_height">@dimen/logo_height</item>
         <item name="android:layout_gravity">center_horizontal</item>
@@ -58,6 +68,8 @@
 
     <style name="ExitIcon">
         <item name="android:contentDescription">Exit Icon</item>
+        <item name="android:layout_marginRight">@dimen/exit_icon_margin</item>
+        <item name="android:layout_marginTop">@dimen/exit_icon_margin</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentRight">true</item>
@@ -67,21 +79,16 @@
     <style name="Layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
-        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
-        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
         <item name="android:background">@drawable/background</item>
     </style>
 
-    <style name="Layout.GameEnd">
-        <item name="android:paddingBottom">@dimen/zero</item>
-    </style>
+
 
     <style name="TextQuestion">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/zero</item>
         <item name="android:layout_marginTop">@dimen/text_question_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/text_question_margin_bottom</item>
         <item name="android:layout_weight">0.3</item>
         <item name="android:gravity">center</item>
         <item name="android:text">@string/question</item>
@@ -105,10 +112,7 @@
         <item name="android:rowCount">2</item>
     </style>
 
-    <style name="ButtonWrapper">
-        <item name="android:layout_width">@dimen/wrapper_width</item>
-        <item name="android:layout_height">@dimen/wrapper_height</item>
-    </style>
+
 
     <style name="TextScore">
         <item name="android:layout_width">wrap_content</item>

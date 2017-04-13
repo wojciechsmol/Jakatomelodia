@@ -62,7 +62,7 @@ public class Game {
 
         try {
             //nextPermutation generates an integer array without repetition
-            randomIndexes = generator.nextPermutation((Question.mQuestions.length - 1), MAX_QUESTIONS);
+            randomIndexes = generator.nextPermutation((Question.mQuestions.length), MAX_QUESTIONS);
         } catch (MathIllegalNumberException e) {
             e.printStackTrace();
         }
