@@ -24,13 +24,10 @@
             <FrameLayout
                 android:id="@+id/new_game_frame"
                 style="@style/ButtonWrapper"
-                android:layout_marginTop="@dimen/new_game_margin_top_main"
-                >
-
+                android:layout_marginTop="@dimen/new_game_margin_top_main">
                 <Button
                     android:id="@+id/button_new_game"
                     style="@style/Button"
-                    android:layout_below="@id/score_number"
                     android:text="@string/new_game"
                     android:shadowRadius="5"/>
             </FrameLayout>

@@ -5,6 +5,7 @@
     <string name="exit_game">Wyjście Z Gry</string>
     <string name="score">WYNIK:</string>
     <string name="question">Pytanie <xliff:g id="question_nr">%d</xliff:g> / <xliff:g id="max_questions">%d</xliff:g></string>
+    <string name="category">Wybierz kategorię:</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="time_up">Koniec czasu!</string>
@@ -13,4 +14,7 @@
     <string name="cancel_game">Poddajesz się?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
+    <string name="pop">POP</string>
+    <string name="rock">ROCK</string>
+    <string name="seventiesandeighties">70s &#38; 80s</string>
 </resources>

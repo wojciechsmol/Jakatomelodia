@@ -21,8 +21,7 @@ public class GameEndActivity extends AppCompatActivity {
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlayActivity.game = new Game();
-                startActivity(new Intent(GameEndActivity.this, PlayActivity.class));
+                startActivity(new Intent(GameEndActivity.this, CategoryActivity.class));
             }
         });
 

@@ -4,6 +4,7 @@
     <string name="exit_game">Exit Game</string>
     <string name="score">SCORE:</string>
     <string name="question">Question <xliff:g id="question_nr">%d</xliff:g> / <xliff:g id="max_questions">%d</xliff:g></string>
+    <string name="category">Choose Category:</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="time_up">Time\'s up!</string>
@@ -12,5 +13,8 @@
     <string name="cancel_game">Cancel current game?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="pop">POP</string>
+    <string name="rock">ROCK</string>
+    <string name="seventiesandeighties">70s &#38; 80s</string>
 
 </resources>

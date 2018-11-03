@@ -342,22 +342,27 @@ public class PlayActivity extends AppCompatActivity {
 
 
         for (int i = 0; i < MAX_ANSWERS - 1; i++) {
-            // if there isn't such question in ArrayList add it
-            if (!mPossibleAnswers.contains(Question.mQuestions[randomIndexes[i]])) {
-                mPossibleAnswers.add(Question.mQuestions[randomIndexes[i]]);
-            } else {
+            Question currentQuestion = Question.mQuestions[randomIndexes[i]];
+            // if there isn't such question in ArrayList and it belongs to correct category add it
+            if (mPossibleAnswers.contains(currentQuestion) || currentQuestion.getmCategory() != game.getmGameCategory()) {
+
                 // new index
-                int j;
+                int myRandomInteger;
                 do {
                     // searching for unique question
-                    j = Game.generator.nextInt(0, Question.mQuestions.length - 1);
+                    myRandomInteger = Game.generator.nextInt(0, Question.mQuestions.length - 1);
+                    currentQuestion = Question.mQuestions[myRandomInteger];
 
-                } // while the array already contains this answer
-                while (mPossibleAnswers.contains(Question.mQuestions[j]));
-                // add question to Array
-                mPossibleAnswers.add(Question.mQuestions[j]);
+                } // while the array already contains this answer or it does not belong to correct category
+                while (mPossibleAnswers.contains(Question.mQuestions[myRandomInteger]) ||
+                        currentQuestion.getmCategory() != game.getmGameCategory());
+
+
+
             }
 
+            //add Question to array
+            mPossibleAnswers.add(currentQuestion);
         }
         // shuffle answers so that the correct answer isn't always at first place
         Collections.shuffle(mPossibleAnswers);

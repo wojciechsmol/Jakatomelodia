@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/question_text"
-            style="@style/TextQuestion" />
+            style="@style/TextTitle.Question" />
 
         <SeekBar
             android:id="@+id/progress_bar"

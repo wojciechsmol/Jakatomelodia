@@ -37,6 +37,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Button.Orange">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="Button.Answer">
         <item name="android:layout_centerHorizontal">false</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
@@ -49,6 +53,10 @@
         <item name="android:layout_height">@dimen/button_height</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:background">@drawable/button</item>
+    </style>
+
+    <style name="ButtonWrapper.Category">
+        <item name="android:background">@drawable/button_orange</item>
     </style>
 
     <style name="ButtonWrapper.Play">
@@ -84,17 +92,25 @@
 
 
 
-    <style name="TextQuestion">
+    <style name="TextTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/zero</item>
         <item name="android:layout_marginTop">@dimen/text_question_margin_top</item>
         <item name="android:layout_marginBottom">@dimen/text_question_margin_bottom</item>
         <item name="android:layout_weight">0.3</item>
         <item name="android:gravity">center</item>
-        <item name="android:text">@string/question</item>
         <item name="android:textAppearance">?android:textAppearanceLarge</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextTitle.Question">
+        <item name="android:text">@string/question</item>
+    </style>
+
+    <style name="TextTitle.Category">
+        <item name="android:textSize">30sp</item>
+        <item name="android:text">@string/category</item>
     </style>
 
     <style name="SeekBar">

@@ -4,12 +4,8 @@ import org.apache.commons.math3.exception.MathIllegalNumberException;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-
-/**
- * Created by Wojtek on 09.04.2017.
- */
 
 public class Game {
 
@@ -23,10 +19,13 @@ public class Game {
     private int mquestionNumber;
     // Score
     private int mScore;
+    //Game category
+    private Question.Category mGameCategory;
     //Set of questions for current game
     private List<Question> mQuestionsGame;
     // Random generator
     public static RandomDataGenerator generator;
+
 
     static {
         // Initializing RandomDataGenerator Object
@@ -34,9 +33,10 @@ public class Game {
     }
 
     // public Constructor
-    public Game() {
+    public Game(Question.Category gameCategory) {
         this.mquestionNumber = 0;
         this.mScore = 0;
+        this.mGameCategory = gameCategory;
         //Generating questions
         setQuestions();
     }
@@ -51,6 +51,14 @@ public class Game {
 
     public int getScore() {
         return mScore;
+    }
+
+    public Question.Category getmGameCategory() {
+        return mGameCategory;
+    }
+
+    public void setmGameCategory(Question.Category mGameCategory) {
+        this.mGameCategory = mGameCategory;
     }
 
     private void setQuestions() {
@@ -69,7 +77,20 @@ public class Game {
 
         // Adding questions to ArrayList
         for (int i = 0; i < MAX_QUESTIONS; i++) {
-            mQuestionsGame.add(Question.mQuestions[randomIndexes[i]]);
+            Question currentQuestion = Question.mQuestions[randomIndexes[i]];
+
+            //Check if every question belongs to the correct category, If not pick random one and check if this one is ok
+            if (currentQuestion.getmCategory() != getmGameCategory())
+            {
+                int myRandomInteger;
+                do {
+                    myRandomInteger = generator.nextInt(0, Question.mQuestions.length - 1);
+                    currentQuestion = Question.mQuestions[myRandomInteger];
+                } //repeat if the list already contains this song or the song has wrong category
+                while (Arrays.asList(randomIndexes).contains(myRandomInteger) || currentQuestion.getmCategory() != getmGameCategory());
+            }
+
+            mQuestionsGame.add(currentQuestion);
         }
     }
 
