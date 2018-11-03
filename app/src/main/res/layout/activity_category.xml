@@ -34,7 +34,7 @@
             <FrameLayout
                 android:id="@+id/frame_button_category_pop"
                 style="@style/ButtonWrapper.Category"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/category_text">
                 <Button
                     android:id="@+id/button_category_pop"
