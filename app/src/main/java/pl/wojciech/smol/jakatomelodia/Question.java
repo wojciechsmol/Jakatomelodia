@@ -15,8 +15,7 @@ public class Question {
 
     //Array of Questions available in the app
     public static final Question[] mQuestions = {
-
-            //TODO ADD THE CATEGORY FOR EACH ONE
+            
             new Question(R.raw.again, "Again", Category.ROCK),
             new Question(R.raw.always, "Always", Category.POP),
             new Question(R.raw.touch, "Touch By Touch", Category.SEVENTIESANDEIGHTIS),
