@@ -45,6 +45,10 @@ public class Game {
         return mQuestionsGame.get(mquestionNumber);
     }
 
+    public List<Question> getmQuestionsGame() {
+        return mQuestionsGame;
+    }
+
     public int getQuestionNumber() {
         return mquestionNumber;
     }
@@ -79,9 +83,10 @@ public class Game {
         for (int i = 0; i < MAX_QUESTIONS; i++) {
             Question currentQuestion = Question.mQuestions[randomIndexes[i]];
 
-            //Check if every question belongs to the correct category, If not pick random one and check if this one is ok
-            if (currentQuestion.getmCategory() != getmGameCategory())
-            {
+            //Check if every question belongs to the correct category and if it is not a duplicate,
+            // If not pick random one and check if this one is ok
+
+            if (currentQuestion.getmCategory() != getmGameCategory() || mQuestionsGame.contains(currentQuestion)) {
                 int myRandomInteger;
                 do {
                     myRandomInteger = generator.nextInt(0, Question.mQuestions.length - 1);
