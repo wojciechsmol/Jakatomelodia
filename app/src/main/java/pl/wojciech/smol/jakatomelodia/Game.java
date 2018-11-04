@@ -87,7 +87,8 @@ public class Game {
                     myRandomInteger = generator.nextInt(0, Question.mQuestions.length - 1);
                     currentQuestion = Question.mQuestions[myRandomInteger];
                 } //repeat if the list already contains this song or the song has wrong category
-                while (Arrays.asList(randomIndexes).contains(myRandomInteger) || currentQuestion.getmCategory() != getmGameCategory());
+                while (Arrays.asList(randomIndexes).contains(myRandomInteger) || currentQuestion.getmCategory() != getmGameCategory()
+                        || mQuestionsGame.contains(currentQuestion));
             }
 
             mQuestionsGame.add(currentQuestion);

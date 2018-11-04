@@ -354,7 +354,7 @@ public class PlayActivity extends AppCompatActivity {
                     currentQuestion = Question.mQuestions[myRandomInteger];
 
                 } // while the array already contains this answer or it does not belong to correct category
-                while (mPossibleAnswers.contains(Question.mQuestions[myRandomInteger]) ||
+                while (mPossibleAnswers.contains(currentQuestion) ||
                         currentQuestion.getmCategory() != game.getmGameCategory());
 
 
