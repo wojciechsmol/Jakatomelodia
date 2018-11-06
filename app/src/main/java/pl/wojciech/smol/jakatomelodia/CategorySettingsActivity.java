@@ -50,14 +50,12 @@ public class CategorySettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 if (isChecked) {
-                    editor.putBoolean(POP, isChecked);
-                    editor.apply();
+                    editor.putBoolean(POP, isChecked).apply();
                     editor.commit();
                 }
                 else
                 {
-                    editor.putBoolean(POP, isChecked);
-                    editor.apply();
+                    editor.putBoolean(POP, isChecked).apply();
                     editor.commit();
                 }
             }
@@ -71,14 +69,12 @@ public class CategorySettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 if (isChecked) {
-                    editor.putBoolean(ROCK, isChecked);
-                    editor.apply();
+                    editor.putBoolean(ROCK, isChecked).apply();
                     editor.commit();
                 }
                 else
                 {
-                    editor.putBoolean(ROCK, isChecked);
-                    editor.apply();
+                    editor.putBoolean(ROCK, isChecked).apply();
                     editor.commit();
                 }
 
@@ -93,14 +89,12 @@ public class CategorySettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 if (isChecked) {
-                    editor.putBoolean(SEVENTIES_AND_EIGHITES, isChecked);
-                    editor.apply();
+                    editor.putBoolean(SEVENTIES_AND_EIGHITES, isChecked).apply();
                     editor.commit();
                 }
                 else
                 {
-                    editor.putBoolean(SEVENTIES_AND_EIGHITES, isChecked);
-                    editor.apply();
+                    editor.putBoolean(SEVENTIES_AND_EIGHITES, isChecked).apply();
                     editor.commit();
                 }
 
