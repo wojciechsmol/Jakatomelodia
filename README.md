@@ -4,7 +4,7 @@ I didn't translate the name of this app because that is a name of a TV show from
 
 I've done my best to make this app as professional as it gets, however I have many plans for improving it in the future. There's a lot to be done!
 
-But before going into details here's the VIDEO of my app TURN THE SOUND ON! (sorry for reccording with another phone, but using software my video is scattered and unwatchable): https://www.youtube.com/watch?v=xVr8Rtvp7Ug
+But before going into details here's the VIDEO of my app TURN THE SOUND ON! (sorry for reccording with another phone, but using software my video is scattered and unwatchable): https://youtu.be/_E7-IxqX-4A
 
 So as you can see when you tap NEW GAME you have to choose on of the categories. Once you choose the category, the game starts and you have 10 songs to guess. (There is an array of songs the app can choose from) If you've guessed the song correct you get 10 points if not you get no points. If you wait too long and song is over you get no points. You can cancel your game at any time by tapping X icon. You can exit app by tapping EXIT button.
 
