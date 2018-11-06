@@ -3,6 +3,7 @@
     package="pl.wojciech.smol.jakatomelodia">
 
     <application
+        android:name=".JakaToMelodiaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +27,7 @@
             android:name=".GameEndActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        <activity android:name=".CategoryActivity"></activity>
+        <activity android:name=".CategorySettingsActivity"></activity>
     </application>
 
 </manifest>

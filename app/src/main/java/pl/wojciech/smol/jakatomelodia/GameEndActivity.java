@@ -15,13 +15,13 @@ public class GameEndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_end);
 
         //Initializing newGameButton
-        Button newGameButton = (Button) findViewById(R.id.button_new_game);
+        Button mainMenuButton = (Button) findViewById(R.id.button_main_menu);
 
         //Setting onClickListener for the newGameButton
-        newGameButton.setOnClickListener(new View.OnClickListener() {
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GameEndActivity.this, CategoryActivity.class));
+                startActivity(new Intent(GameEndActivity.this, MainActivity.class));
             }
         });
 

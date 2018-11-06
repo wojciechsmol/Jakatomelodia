@@ -1,11 +1,16 @@
 package pl.wojciech.smol.jakatomelodia;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.apache.commons.math3.exception.MathIllegalNumberException;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Game {
 
@@ -19,8 +24,8 @@ public class Game {
     private int mquestionNumber;
     // Score
     private int mScore;
-    //Game category
-    private Question.Category mGameCategory;
+    //Game categories set by User
+    private Set<Question.Category> mGameCategories;
     //Set of questions for current game
     private List<Question> mQuestionsGame;
     // Random generator
@@ -33,10 +38,11 @@ public class Game {
     }
 
     // public Constructor
-    public Game(Question.Category gameCategory) {
+    public Game() {
         this.mquestionNumber = 0;
         this.mScore = 0;
-        this.mGameCategory = gameCategory;
+        this.mGameCategories = new HashSet<>();
+        setCategories();
         //Generating questions
         setQuestions();
     }
@@ -57,15 +63,26 @@ public class Game {
         return mScore;
     }
 
-    public Question.Category getmGameCategory() {
-        return mGameCategory;
+    public Set<Question.Category> getmGameCategories() {
+        return mGameCategories;
     }
 
-    public void setmGameCategory(Question.Category mGameCategory) {
-        this.mGameCategory = mGameCategory;
+    //Setting categories for current game
+    private void setCategories(){
+        Context context = JakaToMelodiaApplication.getContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(CategorySettingsActivity.MY_CATEGORY_PREFERENCES, Context.MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean(CategorySettingsActivity.POP, false))
+            mGameCategories.add(Question.Category.POP);
+
+        if (sharedPreferences.getBoolean(CategorySettingsActivity.ROCK, false))
+            mGameCategories.add(Question.Category.ROCK);
+
+        if (sharedPreferences.getBoolean(CategorySettingsActivity.SEVENTIES_AND_EIGHITES, false))
+            mGameCategories.add(Question.Category.SEVENTIESANDEIGHTIS);
     }
 
-    private void setQuestions() {
+    /*private void setQuestions() {
         // Initializing LinkedHashSet so that the questions do not duplicate
         mQuestionsGame = new ArrayList<>(MAX_QUESTIONS);
 
@@ -98,7 +115,42 @@ public class Game {
 
             mQuestionsGame.add(currentQuestion);
         }
+    }*/
+
+    private void setQuestions() {
+        mQuestionsGame = new ArrayList<>(MAX_QUESTIONS);
+
+        //randomIndexes to get questions from Question class
+        int[] randomIndexes = new int[MAX_QUESTIONS];
+
+        try {
+            //nextPermutation generates an integer array without repetition
+            randomIndexes = generator.nextPermutation((Question.mQuestions.length), MAX_QUESTIONS);
+        } catch (MathIllegalNumberException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < MAX_QUESTIONS; i++) {
+            Question currentQuestion = Question.mQuestions[randomIndexes[i]];
+
+            //Check if every question belongs to the correct set of categories and if it is not a duplicate,
+            // If not pick random one and check if this one is ok
+
+            if (!mGameCategories.contains(currentQuestion.getmCategory()) || mQuestionsGame.contains(currentQuestion)) {
+                int myRandomInteger;
+                do {
+                    myRandomInteger = generator.nextInt(0, Question.mQuestions.length - 1);
+                    currentQuestion = Question.mQuestions[myRandomInteger];
+                } //repeat if the list already contains this song or the song has wrong category
+                while (Arrays.asList(randomIndexes).contains(myRandomInteger) || !mGameCategories.contains(currentQuestion.getmCategory())
+                        || mQuestionsGame.contains(currentQuestion));
+            }
+
+            mQuestionsGame.add(currentQuestion);
+        }
     }
+
+
 
     // If the answer was correct
     public void correctAnswer() {

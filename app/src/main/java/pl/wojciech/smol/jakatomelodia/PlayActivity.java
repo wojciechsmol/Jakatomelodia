@@ -320,6 +320,7 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer1.setText(mPossibleAnswers.get(1).getAnswer());
         buttonAnswer2.setText(mPossibleAnswers.get(2).getAnswer());
         buttonAnswer3.setText(mPossibleAnswers.get(3).getAnswer());
+        
 
 
     }
@@ -343,8 +344,8 @@ public class PlayActivity extends AppCompatActivity {
 
         for (int i = 0; i < MAX_ANSWERS - 1; i++) {
             Question currentQuestion = Question.mQuestions[randomIndexes[i]];
-            // if there isn't such question in ArrayList and it belongs to correct category add it
-            if (mPossibleAnswers.contains(currentQuestion) || currentQuestion.getmCategory() != game.getmGameCategory()) {
+            // if there isn't such question in ArrayList and it belongs to correct set of categories add it
+            if (mPossibleAnswers.contains(currentQuestion) || !game.getmGameCategories().contains(currentQuestion.getmCategory())) {
 
                 // new index
                 int myRandomInteger;
@@ -355,9 +356,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 } // while the array already contains this answer or it does not belong to correct category
                 while (mPossibleAnswers.contains(currentQuestion) ||
-                        currentQuestion.getmCategory() != game.getmGameCategory());
-
-
+                        !game.getmGameCategories().contains(currentQuestion.getmCategory()));
 
             }
 

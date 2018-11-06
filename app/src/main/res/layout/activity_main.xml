@@ -32,11 +32,23 @@
                     android:shadowRadius="5"/>
             </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/set_categories_frame"
+                style="@style/ButtonWrapper"
+                android:layout_below="@id/new_game_frame"
+                android:layout_marginTop="40dp">
+                <Button
+                    android:id="@+id/button_set_categories"
+                    style="@style/Button"
+                    android:text="@string/set_categories"
+                    android:shadowRadius="5"/>
+            </FrameLayout>
+
             <!--FrameLayout for touch Effect-->
             <FrameLayout
                 android:id="@+id/exit_button_frame"
                 style="@style/ButtonWrapper"
-                android:layout_below="@id/new_game_frame"
+                android:layout_below="@id/set_categories_frame"
                 android:layout_marginTop="@dimen/exit_margin_top_main"
                 >
 

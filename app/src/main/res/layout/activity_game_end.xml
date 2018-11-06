@@ -37,10 +37,10 @@
                 android:shadowRadius="5">
 
                 <Button
-                    android:id="@+id/button_new_game"
+                    android:id="@+id/button_main_menu"
                     style="@style/Button"
                     android:layout_below="@id/score_number"
-                    android:text="@string/new_game" />
+                    android:text="@string/main_menu" />
             </FrameLayout>
 
             <!--FrameLayout for touch Effect-->

@@ -108,9 +108,9 @@
         <item name="android:text">@string/question</item>
     </style>
 
-    <style name="TextTitle.Category">
+    <style name="TextTitle.SetCategory">
         <item name="android:textSize">27sp</item>
-        <item name="android:text">@string/category</item>
+        <item name="android:text">@string/set_category</item>
     </style>
 
     <style name="SeekBar">

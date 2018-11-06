@@ -2,10 +2,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Jaka to melodia?</string>
     <string name="new_game">Nowa Gra</string>
+    <string name="main_menu">Menu</string>
+    <string name="set_categories">Wybierz Gatunki</string>
     <string name="exit_game">Wyjście Z Gry</string>
     <string name="score">WYNIK:</string>
     <string name="question">Pytanie <xliff:g id="question_nr">%d</xliff:g> / <xliff:g id="max_questions">%d</xliff:g></string>
-    <string name="category">Wybierz kategorię:</string>
+    <string name="set_category">Choose Categories:</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="time_up">Koniec czasu!</string>
@@ -17,4 +19,5 @@
     <string name="pop">POP</string>
     <string name="rock">ROCK</string>
     <string name="seventiesandeighties">70s &#38; 80s</string>
+    <string name="no_category_set">Wybierz przynajmniej 1 kategorię!</string>
 </resources>
